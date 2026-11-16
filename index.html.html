@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>輝立 vs 富途 | PI 線上流程對比（給 Compliance）</title>
+<style>
+  :root {
+    --ps: #1565c0;
+    --ps-bg: #e3f2fd;
+    --ft: #e65100;
+    --ft-bg: #fff3e0;
+    --text: #1c1c1e;
+    --sec: #6e6e73;
+    --border: #e5e5ea;
+    --bg: #f0f0f5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang HK", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .page-header {
+    background: #111;
+    color: #fff;
+    padding: 26px 20px 22px;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .page-header p { font-size: 13px; opacity: 0.75; max-width: 640px; margin: 0 auto; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 18px 14px 64px; }
+
+  .exec {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .exec h2 { font-size: 15px; margin-bottom: 8px; }
+  .exec ul { padding-left: 18px; }
+  .exec li { font-size: 13px; color: var(--sec); margin-bottom: 5px; }
+  .tag-ps { color: var(--ps); font-weight: 700; }
+  .tag-ft { color: var(--ft); font-weight: 700; }
+
+  .step-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .step-nav button {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--sec);
+  }
+  .step-nav button.active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .section-desc { font-size: 13px; color: var(--sec); margin-bottom: 14px; }
+
+  .side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 700px) {
+    .side-by-side { grid-template-columns: 1fr; }
+  }
+
+  .phone-mock {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .phone-header {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+    background: #111;
+  }
+  .phone-header .back { position: absolute; left: 12px; font-size: 18px; opacity: 0.85; }
+  .phone-body { padding: 14px; font-size: 12.5px; min-height: 320px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .badge.ps { background: var(--ps-bg); color: var(--ps); }
+  .badge.ft { background: var(--ft-bg); color: var(--ft); }
+
+  .mock-h1 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .mock-h2 { font-size: 13px; font-weight: 700; margin: 12px 0 5px; color: #1c1c1e; }
+  .mock-p { font-size: 12px; color: var(--sec); line-height: 1.55; margin-bottom: 7px; }
+  .mock-card {
+    background: #f8f8fa;
+    border-radius: 9px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-left: 3px solid #007aff;
+  }
+  .mock-card.green { border-left-color: #34c759; }
+  .mock-card.yellow { border-left-color: #ff9500; }
+  .mock-btn {
+    display: block;
+    width: 100%;
+    height: 38px;
+    border-radius: 19px;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+    text-align: center;
+    line-height: 38px;
+  }
+  .mock-btn.outline {
+    background: #fff;
+    color: #1c1c1e;
+    border: 1.5px solid #e5e5ea;
+  }
+  .mock-list { padding-left: 15px; margin: 4px 0; }
+  .mock-list li { font-size: 12px; color: var(--sec); margin-bottom: 3px; }
+
+  .diff-box {
+    margin-top: 14px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .diff-box h3 { font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
+  .diff-box ul { padding-left: 18px; }
+  .diff-box li { font-size: 12.5px; color: var(--sec); margin-bottom: 5px; }
+
+  .wording-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-top: 14px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .wording-table th, .wording-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .wording-table th {
+    background: #f5f5f7;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .wording-table tr:last-child td { border-bottom: none; }
+
+  .key-takeaway {
+    background: #111;
+    color: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .key-takeaway strong { color: #ffd60a; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>輝立 vs 富途 · PI 線上流程對比</h1>
+  <p>給 Compliance：逐頁畫面 + wording 對照（輝立藍標 / 富途橙標；資產步驟僅 Path B vs 富途）</p>
+</div>
+
+<div class="container">
+
+  <div class="exec">
+    <h2>執行摘要</h2>
+    <ul>
+      <li><span class="tag-ps">輝立</span>：系統自動判定 Path A／Path B；介紹頁含完整「什麼是／為何申請／申請方式」；強制滾動 + 三個 Non-pre-ticked 同意框；Need More Info 退回原路徑；認證成功後含年審與撤回。</li>
+      <li><span class="tag-ft">富途</span>：介紹頁法規定義更細；風險披露顯示持牌代表姓名+牌照；「閱讀聲明」頁點下一步即視為同意；上載有紅圈範例；未通過原因清單清晰。</li>
+      <li>Path B 上載要求與未通過 9 項原因兩邊高度一致。</li>
+    </ul>
+  </div>
+
+  <div class="step-nav" id="stepNav">
+    <button class="active" onclick="showStep(0)">1. 介紹頁</button>
+    <button onclick="showStep(1)">2. Path B / 上載</button>
+    <button onclick="showStep(2)">3. 風險披露</button>
+    <button onclick="showStep(3)">4. OTP</button>
+    <button onclick="showStep(4)">5. 提交 / 未通過 / 成功</button>
+  </div>
+
+  <!-- STEP 0 Intro -->
+  <div class="section active" id="step0">
+    <div class="section-title">1. 專業投資者介紹頁 · Wording</div>
+    <div class="section-desc">補齊輝立介紹頁完整條文；富途沿用既有截圖 wording</div>
+
+    <div class="side-by-side">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>專業投資者認證</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 PSHK</span>
+          <div class="mock-h1">專業投資者介紹</div>
+
+          <div class="mock-card">
+            <b>合規門檻</b>
+            <div class="mock-p" style="margin:4px 0 0">個人專業投資者須持有 <b style="color:#ff9500">Net Portfolio ≥ HKD 8,000,000</b>（或等值外幣）。系統自動扣除 Margin 欠款後計算。</div>
+          </div>
+          <div class="mock-card" style="border-left-color:#1565c0">
+            <div style="font-size:11px;font-weight:600;color:#1565c0;margin-bottom:4px">系統已自動識別您的帳戶資產</div>
+            <div class="mock-p" style="margin:0">偵測結果後系統將自動進入路徑 A 或路徑 B。</div>
+          </div>
+
+          <div class="mock-h2">1. 什麼是「專業投資者」？</div>
+          <div class="mock-p">包括機構專業投資者、法團專業投資者及個人專業投資者。個人專業投資者指持有港元 800 萬（或等值外幣）以上投資組合的個人（現金、存款證及《證券及期貨條例》所定義證券）。</div>
+
+          <div class="mock-h2">2. 為何申請？</div>
+          <div class="mock-p">成為專業投資者後，可參與國際配售、特定基金產品（包括僅針對專業投資者銷售的認可基金及合法的未經認可基金）等更豐富產品。</div>
+
+          <div class="mock-h2">3. 申請方式</div>
+          <div class="mock-p">系統會根據您現有帳戶資產自動判定最優路徑：</div>
+          <ul class="mock-list">
+            <li><b>路徑 A</b>：輝立內部資產即時核驗（極速）</li>
+            <li><b>路徑 B</b>：上載外部資產證明（1 個工作天審批）</li>
+          </ul>
+
+          <div class="mock-btn">繼續</div>
+        </div>
+      </div>
+
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>專業投資者認證</div>
+        <div class="phone-body">
+          <span class="badge ft">富途 Futu</span>
+          <div class="mock-h1">專業投資者介紹</div>
+
+          <div class="mock-h2">1. 什麼是「專業投資者」？</div>
+          <div class="mock-p">根據香港《證券及期貨條例》的規定，專業投資者包括機構專業投資者、法團專業投資者和個人專業投資者。</div>
+          <div class="mock-p">機構專業投資者是指《證券及期貨條例》附表1第1部第1條「專業投資者」定義中的第 (a) 至 (i) 所指的人士，如認可交易所、認可結算所、中介人、認可財務機構、獲授權的保險人、認可的集體投資計劃、註冊的強積金計劃、職業退休計劃、政府等。</div>
+          <div class="mock-p">法團專業投資者是指《證券及期貨（專業投資者）規則》第4、6及7條所指的信托法團、法團或合夥。根據規則，信托法團需要持有港元 4000 萬（或等值外幣）以上的總資產；法團或合夥需要持有港元 800 萬（或等值外幣）以上的投資組合，或港元 4000 萬（或等值外幣）以上的總資產。</div>
+          <div class="mock-p">個人專業投資者是指《證券及期貨（專業投資者）規則》第5條所指的個人，並持有港元 800 萬（或等值外幣）以上的投資組合，如現金、存款證、及《證券及期貨條例》所定義的證券。</div>
+
+          <div class="mock-h2">2. 為何要申請成為「專業投資者」？</div>
+          <div class="mock-p">成為專業投資者可豐富您的投資工具。富途證券國際(香港)有限公司(下稱「富途證券(香港)」)投資者提供更豐富的投資產品，例如，參與國際配售或認購某些特定基金產品（包括僅針對專業投資者銷售的認可基金及合法的未經認可基金）。</div>
+
+          <div class="mock-h2">3. 如何成為「專業投資者」？</div>
+          <div class="mock-p">您可通過本頁發起在線申請，如果您已在富途證券(香港)持有符合以上要求的資產（現金及《證券及期貨條例》所定義證券），在申請過程中您無需提交資產證明文件，否則您需要提供資產證明。在提交申請後，我們會在 1-2 個工作天內完成審批。如您操作的是公司帳戶，請聯絡客服進一步查詢相關申請事宜。</div>
+
+          <div class="mock-h2">4. 專業投資者身份是否會過期？</div>
+          <div class="mock-p">會。您必須在每12個月重新確認個人專業投資者身份。屆時，富途證券(香港)會向您發出提示電郵。</div>
+
+          <div class="mock-btn">立即認證</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="wording-table">
+      <tr>
+        <th style="width:18%">對照項</th>
+        <th style="width:41%">輝立</th>
+        <th style="width:41%">富途</th>
+      </tr>
+      <tr>
+        <td><b>什麼是 PI</b></td>
+        <td>機構／法團／個人；個人 = 800 萬投資組合（現金、存款證及條例所定義證券）</td>
+        <td>完整條文：機構 (a)–(i)、信托 4000 萬、法團／合夥 800 萬或 4000 萬、個人 800 萬</td>
+      </tr>
+      <tr>
+        <td><b>為何申請</b></td>
+        <td>國際配售、特定基金（認可及合法未經認可基金）</td>
+        <td>同方向，並寫明「富途證券(香港)」全稱</td>
+      </tr>
+      <tr>
+        <td><b>申請方式</b></td>
+        <td>系統自動判定路徑 A（內部即時核驗）／路徑 B（上載，1 工作天）</td>
+        <td>內部已達標無需證明；否則上載；1–2 工作天；公司帳戶聯絡客服</td>
+      </tr>
+      <tr>
+        <td><b>是否過期</b></td>
+        <td>介紹頁未單獨成段（放在認證成功後）</td>
+        <td>獨立第 4 點：每 12 個月重新確認 + 提示電郵</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- STEP 1 Path B only vs Futu -->
+  <div class="section" id="step1">
+    <div class="section-title">2. 資產上載 · Path B vs 富途</div>
+    <div class="section-desc">僅對照外部上載頁（輝立 Path B 與富途）；Path A 不在此步展示</div>
+
+    <div class="side-by-side">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>上傳資產證明</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 · Path B</span>
+          <div class="mock-h1">上傳資產證明</div>
+          <div class="mock-card yellow">
+            <div class="mock-p" style="margin:0">內部淨資產約 <b>HKD 6.20M</b>，未達 800 萬。請上載外部證明。</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>接受證明</b>：銀行／證券結單、信託證明、資產證明；可多份合併，總值 ≥ <span style="color:#ff9500">800 萬港元</span></div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>發出日期</b>：近一年內（多份日期需相同）</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>證明內容</b>：①姓名 ②發出機構 ③發出日期 ④資產金額；<span style="color:#ff3b30">不接受局部截圖或裁切</span></div>
+          </div>
+          <div class="mock-p"><b>證明範例</b>（紅圈標示必須清晰）</div>
+          <div class="mock-btn">下一步</div>
+        </div>
+      </div>
+
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>上傳資產證明</div>
+        <div class="phone-body">
+          <span class="badge ft">富途 · 外部上載</span>
+          <div class="mock-h1">上傳資產證明</div>
+          <div class="mock-p">請根據要求上傳有效的資產證明</div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>接受證明</b>：銀行結單／證券結單／信託證明／資產證明；可多份證明合併計算，請確保資產組合總值不低於 <span style="color:#ff9500">800 萬港元</span>（或等值外幣，請註明貨幣種類）</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>發出日期</b>：近一年內（如有多份證明，日期需相同）</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0"><b>證明內容</b>：需包含：①本人姓名、②發出機構、③發出日期、④資產金額，確保整頁文件邊角清晰完整，<span style="color:#ff3b30">不接受局部截圖或裁切文件</span></div>
+          </div>
+          <div class="mock-p"><b>證明範例</b>（中國銀行月結單紅圈 ①姓名 ②機構 ③日期）· 查閱更多</div>
+          <div class="mock-btn">下一步</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="wording-table">
+      <tr>
+        <th style="width:18%">對照項</th>
+        <th style="width:41%">輝立 Path B</th>
+        <th style="width:41%">富途</th>
+      </tr>
+      <tr>
+        <td><b>內部未達標提示</b></td>
+        <td>有（顯示內部淨資產約數 + 引導上載）</td>
+        <td>無獨立提示卡（直接進入上載要求）</td>
+      </tr>
+      <tr>
+        <td><b>接受證明</b></td>
+        <td>銀行／證券結單、信託、資產證明；可多份合併 ≥800 萬</td>
+        <td>同左，並寫明「請註明貨幣種類」</td>
+      </tr>
+      <tr>
+        <td><b>發出日期</b></td>
+        <td>近一年內（多份日期需相同）</td>
+        <td>近一年內（如有多份證明，日期需相同）</td>
+      </tr>
+      <tr>
+        <td><b>證明內容</b></td>
+        <td>①姓名 ②機構 ③日期 ④金額；不接受局部截圖或裁切</td>
+        <td>同四要素；「整頁邊角清晰完整，不接受局部截圖或裁切文件」</td>
+      </tr>
+      <tr>
+        <td><b>範例</b></td>
+        <td>紅圈標示必須清晰</td>
+        <td>中國銀行月結單紅圈實例 + 查閱更多</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- STEP 2 Risk -->
+  <div class="section" id="step2">
+    <div class="section-title">3. 風險披露 · Wording</div>
+    <div class="section-desc">15.5 豁免、同意方式、持牌代表（富途 wording 依既有截圖）</div>
+
+    <div class="side-by-side">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>風險披露</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 PSHK</span>
+          <div class="mock-card" style="display:flex;gap:8px;align-items:center;border-left-color:#ccc">
+            <div style="width:32px;height:32px;border-radius:50%;background:#e5e5ea;text-align:center;line-height:32px">👤</div>
+            <div>
+              <div style="font-weight:600;font-size:12px">持牌代表</div>
+              <div style="font-size:11px;color:#8e8e93">如有疑問可聯絡客戶經理或客服</div>
+            </div>
+          </div>
+          <div class="mock-p" style="color:#ff9500;font-weight:600;text-align:center">↓ 請滑動閱讀至底部以啟用同意框</div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0">成功申請成為個人專業投資者之後，輝立證券可為您提供更多投資產品。但該類產品有可能未經香港證監會認可，投資通常帶有較高風險。建議申請前先諮詢獨立第三方專業意見。</div>
+            <div class="mock-p" style="margin:6px 0 0">成為個人專業投資者後，您清楚明白輝立證券可獲豁免履行《操守準則》第 15.5 段及《成交單據規則》中訂明的某些要求。</div>
+            <div class="mock-p" style="margin:6px 0 0"><b>為客戶提供資料</b>：無需提供業務資料及僱員身份與受僱狀況；完成交易後無需盡快確認交易重點；無需提供納斯達克試驗計劃相關資料文件。</div>
+            <div class="mock-p" style="margin:6px 0 0"><b>成交單據等</b>：無需提供《成交單據規則》所要求的文件。</div>
+            <div class="mock-p" style="margin:6px 0 0"><b>撤回權利</b>：可隨時以書面撤回 PI 身分，提交後進入 <b>10 個營業日通知期</b>。個人專業投資者嚴格限定為 Tier 1（15.5 豁免）。</div>
+          </div>
+          <div class="mock-p">☐ Consent 1：本人完全理解 15.3B 披露之專業投資者風險與免除法定保護之後果</div>
+          <div class="mock-p">☐ Consent 2：本人自願接受專業投資者身分並確認上述所勾選之特定產品適用範圍</div>
+          <div class="mock-p">☐ Consent 3：本人確認知悉並理解擁有隨時以書面撤回此 PI 身分或變更適用範圍的法定權利</div>
+          <div class="mock-p" style="color:#ff3b30;font-size:11px">三框均為 Non-pre-ticked；須滾動至底部後才可勾選</div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>風險披露</div>
+        <div class="phone-body">
+          <span class="badge ft">富途 Futu</span>
+          <div class="mock-card" style="display:flex;gap:8px;align-items:center;border-left-color:#ccc">
+            <div style="width:32px;height:32px;border-radius:50%;background:#ddd;text-align:center;line-height:32px;font-size:14px">人</div>
+            <div>
+              <div style="font-weight:600;font-size:12px">持牌代表: 葉頌銘</div>
+              <div style="font-size:11px;color:#8e8e93">牌照號: BPI648</div>
+            </div>
+          </div>
+          <div class="mock-p">1. 成功申請成為個人專業投資者之後，富途證券(香港)可以為您提供更多的投資產品。但該類投資產品有可能未經香港證監會認可，因此您投資該類產品通常會帶有較高的風險。建議您在申請前先咨詢獨立第三方的專業意見。</div>
+          <div class="mock-p">2. 在您成為個人專業投資者之後，您清楚明白富途證券(香港)與您作為客戶的互動過程中，富途證券(香港)可獲豁免履行《證券及期貨事務監察委員會持牌人或註冊人操守準則》第15.5段及《證券及期貨（成交單據、戶口結單及收據）規則》（下稱「《成交單據規則》」）中訂明的某些要求。</div>
+          <div class="mock-p">儘管富途證券(香港)實際上可能會向您提供以下部分或全部的服務/資訊，您明白富途證券(香港)並不是基於監管責任而採取上述行動。富途證券(香港)可獲豁免履行的相關義務如下：</div>
+          <div class="mock-p"><b>為客戶提供資料</b><br>• 富途證券(香港) 無需向您提供有關富途證券(香港)的業務資料和其僱員及其他代表其行事的人士的身份和受僱狀況的資料；<br>• 完成交易後，富途證券(香港) 無需盡快與您確認有關該宗交易的重點；及<br>• 如你欲通過香港交易所交易納入納斯達克－美國證券交易所試驗計劃的證券，富途證券(香港) 無需向您提供關於該計劃的資料文件。</div>
+          <div class="mock-p"><b>向客戶提供成交單據、戶口結單或收據</b><br>• 無需向您提供《成交單據規則》所要求的成交單據、戶口結單或收據。</div>
+          <div class="mock-p" style="color:#8e8e93">另設「閱讀聲明」頁。點擊「下一步」即表示您已同意並閱讀上述聲明。</div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <div class="mock-btn outline" style="flex:1;margin:0">上一步</div>
+            <div class="mock-btn" style="flex:1;margin:0">下一步</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-box">
+      <h3>合規重點差異</h3>
+      <ul>
+        <li><span class="tag-ps">輝立</span>：強制滾動至底 + 三個獨立 Non-pre-ticked 同意框；明文 10 營業日撤回；不顯示持牌代表姓名／牌照。</li>
+        <li><span class="tag-ft">富途</span>：顯示持牌代表姓名 + 牌照號；另設閱讀聲明頁，點下一步即視為同意；無強制滾動與獨立勾選。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 3 OTP -->
+  <div class="section" id="step3">
+    <div class="section-title">4. OTP / 電子驗證</div>
+    <div class="section-desc">提交前身份驗證</div>
+
+    <div class="side-by-side">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>申請摘要與驗證</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 PSHK</span>
+          <div class="mock-h1">申請摘要與電子驗證</div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0">身分類別：個人專業投資者 (Tier 1)<br>核驗路徑：路徑 A／B（系統自動）<br>淨資產估值：HKD 9.85M 或待人工核實<br>風險披露：已完成並同意</div>
+          </div>
+          <div class="mock-p">雙重簡訊認證 · 聯名帳戶各持有者需各自通過</div>
+          <div class="mock-btn">提交申請</div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>驗證手機號碼</div>
+        <div class="phone-body">
+          <span class="badge ft">富途 Futu</span>
+          <div class="mock-h1">輸入驗證碼</div>
+          <div class="mock-p">驗證碼已發送至 +852-60****12</div>
+          <div class="mock-p" style="text-align:center;color:#8e8e93;margin:24px 0">6 位輸入框 · 53 秒後可重新獲取</div>
+          <div class="mock-p" style="text-align:center;color:#8e8e93">收不到驗證碼</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-box">
+      <h3>Wording 差異</h3>
+      <ul>
+        <li><span class="tag-ps">輝立</span>：OTP 前集中展示申請摘要（身分、路徑、估值、風險已同意）。</li>
+        <li><span class="tag-ft">富途</span>：頁面極簡，只做手機 OTP。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 4 Results -->
+  <div class="section" id="step4">
+    <div class="section-title">5. 提交結果 · 已提交 / Need More Info / 認證成功</div>
+    <div class="section-desc">同一輪對照三種結果</div>
+
+    <div style="font-size:13px;font-weight:700;margin:0 0 8px">① 申請已提交</div>
+    <div class="side-by-side" style="margin-bottom:18px">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>申請狀態</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立</span>
+          <div class="mock-h1" style="text-align:center">申請已提交</div>
+          <div class="mock-p" style="text-align:center">我們已收到您的專業投資者認證申請</div>
+          <div class="mock-card">
+            <div class="mock-p" style="margin:0">申請編號 PI-20261116-88421<br>狀態：Submitted / Under Review<br>預計：Path A 接近即時 · Path B 1 工作天</div>
+          </div>
+          <div class="mock-card">
+            <b>三大狀態</b>
+            <ul class="mock-list">
+              <li>Submitted / Under Review</li>
+              <li>Need More Info（退回原路徑重上載）</li>
+              <li>Approved / Rejected</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>專業投資者認證</div>
+        <div class="phone-body">
+          <span class="badge ft">富途</span>
+          <div class="mock-h1" style="text-align:center">認證申請已提交</div>
+          <div class="mock-p" style="text-align:center">預計 1~2 個工作日內完成審核，屆時將有郵件及 APP 消息通知您</div>
+          <div class="mock-btn outline">完成</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;margin:0 0 8px">② 需要補充資料 / 認證未通過</div>
+    <div class="side-by-side" style="margin-bottom:18px">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>申請狀態</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 · Need More Info</span>
+          <div class="mock-h1" style="text-align:center">需要補充資料</div>
+          <div class="mock-card yellow">
+            <ul class="mock-list">
+              <li>資產不滿足 800 萬港元或等值外幣的要求</li>
+              <li>憑證上的姓名與您開戶的姓名不一致</li>
+              <li>憑證上缺少您的姓名</li>
+              <li>憑證上缺少發出機構的信息</li>
+              <li>憑證上缺少資產數額</li>
+              <li>憑證上缺少幣種信息</li>
+              <li>憑證缺少投資組合信息</li>
+              <li>憑證上缺少發出日期</li>
+              <li>所上傳資料為無效憑證</li>
+            </ul>
+          </div>
+          <div class="mock-btn">補充證明 / 返回路徑重傳</div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>專業投資者認證</div>
+        <div class="phone-body">
+          <span class="badge ft">富途 · 認證未通過</span>
+          <div class="mock-h1" style="text-align:center">認證未通過</div>
+          <div class="mock-card yellow">
+            <div class="mock-p" style="margin:0 0 6px">請參考以下審核意見補充資產憑證，或提升帳戶內的資產價值</div>
+            <ul class="mock-list">
+              <li>資產不滿足800萬港元或等值外幣的要求</li>
+              <li>憑證上的姓名與您開戶的姓名不一致</li>
+              <li>憑證上缺少您的姓名</li>
+              <li>憑證上缺少發出機構的信息</li>
+              <li>憑證上缺少資產數額</li>
+              <li>憑證上缺少幣種信息</li>
+              <li>憑證缺少投資組合信息</li>
+              <li>憑證上缺少發出日期</li>
+              <li>所上傳資料為無效憑證</li>
+            </ul>
+            <div class="mock-p" style="margin:6px 0 0;color:#007aff">如有疑問，請聯絡線上客服</div>
+          </div>
+          <div class="mock-btn">補充證明</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;margin:0 0 8px">③ 認證成功（輝立）</div>
+    <div class="side-by-side">
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>認證結果</div>
+        <div class="phone-body">
+          <span class="badge ps">輝立 · 認證成功</span>
+          <div class="mock-h1" style="text-align:center">認證成功</div>
+          <div class="mock-p" style="text-align:center">您已成為輝立證券個人專業投資者</div>
+          <div class="mock-card green">
+            <div class="mock-p" style="margin:0">生效：2026-11-16 · 有效期至 2027-11-15（365 天）<br>下次年審：系統到期前自動提醒</div>
+          </div>
+          <div class="mock-card">
+            <ul class="mock-list">
+              <li>產品權限即時解鎖（Route Back）</li>
+              <li>Path A：持倉仍 ≥800 萬可一鍵年審</li>
+              <li>帳戶設定常設撤回入口（10 營業日通知期）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="phone-mock">
+        <div class="phone-header"><span class="back">‹</span>專業投資者認證</div>
+        <div class="phone-body">
+          <span class="badge ft">富途</span>
+          <div class="mock-p" style="text-align:center;margin-top:40px;color:#8e8e93">提交後以「認證申請已提交」為主；成功／年審細節多在通知或帳戶內呈現，流程頁較精簡。</div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+<script>
+  function showStep(idx) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step-nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('step' + idx).classList.add('active');
+    document.querySelectorAll('.step-nav button')[idx].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
